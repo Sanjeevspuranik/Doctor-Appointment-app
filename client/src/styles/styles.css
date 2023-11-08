@@ -1,0 +1,36 @@
+#form-item{
+    margin: auto;
+    color: darkcyan;
+}
+
+#form{
+    margin: 15px;
+    align-items: flex-start;
+}
+
+#input-box{
+    align-self: inherit;
+
+}
+
+#notification {
+    border-radius: 50px;
+    background-color: aliceblue;
+    margin: 1%;
+    margin-top: 3%;
+    padding: 1%;
+}
+
+#notification2 {
+    border-radius: 50px;
+    background-color: aliceblue;
+    margin: 1%;
+    margin-top: 0.5%;
+    padding: 1%;
+}
+
+#menu {
+    height: 300px;
+    width: 250px;
+    background-color: grey;
+}
