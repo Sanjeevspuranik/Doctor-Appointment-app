@@ -2,11 +2,14 @@ const express = require("express");
 const {
   registerController,
   loginController,
-  logoutController,
   authController,
   applydoctorController,
   getallnotificationController,
   deleteNotificationController,
+  getAllDoctorsController,
+  bookAppointmentController,
+  bookingAvailabilityController,
+  getAppointmentsController,
 } = require("../controllers/authController");
 
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -35,7 +38,23 @@ route.post(
   deleteNotificationController
 );
 
+// GET ALL DOCTORS INFO
+route.get("/getAllDoctors", authMiddleware, getAllDoctorsController);
+
 //Auth
 route.post("/getUserData", authMiddleware, authController);
+
+// BOOK APPOINTMENT
+route.post("/book-appointment", authMiddleware, bookAppointmentController);
+
+// BOOKING AVIALABILITY
+route.post(
+  "/check-availability",
+  authMiddleware,
+  bookingAvailabilityController
+);
+
+// GET APPOINTMENTS
+route.get("/user-appointments", authMiddleware, getAppointmentsController);
 
 module.exports = route;

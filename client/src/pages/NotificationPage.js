@@ -25,8 +25,10 @@ const NotificationPage = () => {
           headers: { Authorization: `bearer ${localStorage.getItem("token")}` },
         }
       );
-      dispatch(hideLoading());
+
       if (res.data.success) {
+        window.location.reload();
+        dispatch(hideLoading());
         toast.success(res.data.message);
       } else {
         toast.error(res.data.message);
@@ -56,6 +58,7 @@ const NotificationPage = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         toast.success(res.data.message);
+        window.location.reload();
       } else {
         toast.error(res.data.message);
       }

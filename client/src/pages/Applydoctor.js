@@ -8,6 +8,7 @@ import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import moment from "moment-timezone";
 
 const Applydoctor = () => {
   //Handle finish
@@ -18,9 +19,19 @@ const Applydoctor = () => {
   const handlefinish = async (values) => {
     try {
       dispatch(showLoading());
+
+      const formattedTimings = {
+        start: moment(values.timings.start).tz("Asia/Kolkata").format("HH:mm"),
+        end: moment(values.timings.end).tz("Asia/Kolkata").format("HH:mm"),
+      };
+
       const res = await axios.post(
         "api/v1/user/apply-doctor",
-        { ...values, userId: user._id },
+        {
+          ...values,
+          userId: user._id,
+          timings: formattedTimings,
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -35,10 +46,9 @@ const Applydoctor = () => {
         toast.error(res.data.success);
       }
     } catch (error) {
-      dispatch(hideLoading())
+      dispatch(hideLoading());
       console.log(error);
-      toast.error("Something went wrong")
-    
+      toast.error(error.message);
     }
   };
 
@@ -175,12 +185,21 @@ const Applydoctor = () => {
               </Form.Item>
               <Form.Item
                 id="form-item"
-                label="Timings"
-                name={"timings"}
+                label="Start time"
+                name={["timings", "start"]}
                 required
-                rules={{ required: true }}
+                rules={[{ required: true }]}
               >
-                <TimePicker.RangePicker format={"HH:mm"} />
+                <TimePicker format={"HH:mm"} />
+              </Form.Item>
+              <Form.Item
+                id="form-item"
+                label="End time"
+                name={["timings", "end"]}
+                required
+                rules={[{ required: true }]}
+              >
+                <TimePicker format={"HH:mm"} />
               </Form.Item>
             </Col>
           </Row>

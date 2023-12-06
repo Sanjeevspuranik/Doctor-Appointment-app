@@ -17,6 +17,7 @@ const LoginPage = () => {
       dispatch(showLoading());
       const res = await axois.post("/api/v1/user/login", values);
       if (res.data.success) {
+        window.location.reload();
         dispatch(hideLoading());
         toast.success("login successfully");
         localStorage.setItem("token", res.data.token);

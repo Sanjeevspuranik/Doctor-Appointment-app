@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, message } from "antd";
-import { Button, Typography } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 import "../styles/RegisterStyles.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -42,6 +42,9 @@ const RegisterPage = () => {
         </Form.Item>
         <Form.Item label="Email" name="email">
           <Input type="email" required />
+        </Form.Item>
+        <Form.Item label="Phone" name="phone">
+          <Input type="number" required />
         </Form.Item>
         <Form.Item label="Password" name="password">
           <Input type="password" required />

@@ -4,6 +4,8 @@ const colors = require("colors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/DB");
 const authRoutes = require("./routes/authRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const doctorRoutes = require("./routes/doctorRoutes");
 const cors = require("cors");
 
 //rest object
@@ -19,6 +21,20 @@ app.use(morgan("dev"));
 
 //routes
 app.use("/api/v1/user", authRoutes);
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/doctor", doctorRoutes);
+
+app.post("/api/v1/send-sms", async (req, res) => {
+  const { to, body } = req.body;
+
+  const result = await sendSMS(to, body);
+
+  if (result.success) {
+    res.status(200).json(result);
+  } else {
+    res.status(500).json(result);
+  }
+});
 
 const port = process.env.PORT || 8080;
 

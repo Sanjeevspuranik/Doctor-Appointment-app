@@ -56,10 +56,17 @@ const doctorSchema = new mongoose.Schema(
     },
 
     timings: {
-      type: Object,
-      required: [false, "working time is required"],
+      start: {
+        type: String,
+        required: [true, "start is required"],
+      },
+      end: {
+        type: String,
+        required: [true, "end is required"],
+      },
     },
   },
+
   { timestamps: true }
 );
 
